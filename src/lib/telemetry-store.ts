@@ -38,7 +38,19 @@ async function persistSupabase(
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
-  const { error } = await client.from(config.table).insert(data);
+  const payload = {
+    timestamp: data.timestamp,
+    ip: data.ip,
+    user_agent: data.userAgent,
+    accept_language: data.acceptLanguage,
+    referer: data.referer,
+    method: data.method,
+    path: data.path,
+    query_params: data.queryParams,
+    cookies: data.cookies,
+  };
+
+  const { error } = await client.from(config.table).insert(payload);
   if (error) {
     throw new Error(`Supabase insert failed: ${error.message}`);
   }
