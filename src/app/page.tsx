@@ -2,11 +2,24 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const CONTINUE_CTA_DELAY_MS = 1000;
+const CONTINUE_CTA_TEXT = "Less Jokes, More Free Food, click here to continue";
+const CONTINUE_CTA_URL = "https://jobs.mchire.com/";
+
 export default function Home() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [, setPlaybackMessage] = useState("");
   const [videoMissing, setVideoMissing] = useState(false);
+  const [showContinueCta, setShowContinueCta] = useState(false);
+  const ctaTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const clearCtaTimer = () => {
+    if (ctaTimerRef.current) {
+      clearTimeout(ctaTimerRef.current);
+      ctaTimerRef.current = null;
+    }
+  };
 
   const sendLaunchTelemetry = () => {
     if (typeof window === "undefined") return;
@@ -27,6 +40,8 @@ export default function Home() {
   const openVideo = () => {
     setPlaybackMessage("");
     setVideoMissing(false);
+    setShowContinueCta(false);
+    clearCtaTimer();
     setIsVideoOpen(true);
 
     sendLaunchTelemetry();
@@ -40,11 +55,21 @@ export default function Home() {
       video.currentTime = 0;
     }
 
+    clearCtaTimer();
     setIsVideoOpen(false);
     setPlaybackMessage("");
     setVideoMissing(false);
+    setShowContinueCta(false);
   };
 
+  const handleVideoPlaying = () => {
+    if (showContinueCta || ctaTimerRef.current) return;
+
+    ctaTimerRef.current = setTimeout(() => {
+      setShowContinueCta(true);
+      ctaTimerRef.current = null;
+    }, CONTINUE_CTA_DELAY_MS);
+  };
 
   useEffect(() => {
     if (!isVideoOpen) return;
@@ -87,6 +112,12 @@ export default function Home() {
 
     void tryAutoplay();
   }, [isVideoOpen]);
+
+  useEffect(() => {
+    return () => {
+      clearCtaTimer();
+    };
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#04030a] text-white">
@@ -139,7 +170,6 @@ export default function Home() {
           aria-label="Launch Mission video player"
         >
           <div className="relative w-full max-w-5xl rounded-xl border border-cyan-200/30 bg-[#060814] p-2 shadow-[0_0_45px_rgba(14,199,255,0.28)]">
-
             <video
               ref={videoRef}
               autoPlay
@@ -148,6 +178,7 @@ export default function Home() {
               controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"
               className="pointer-events-none aspect-video w-full rounded-lg bg-black"
               preload="auto"
+              onPlaying={handleVideoPlaying}
               onError={() => {
                 setVideoMissing(true);
               }}
@@ -155,6 +186,19 @@ export default function Home() {
               <source src="/video/rickroll.mp4" type="video/mp4" />
               Your browser does not support the HTML5 video tag.
             </video>
+
+            {showContinueCta && (
+              <div className="px-2 pb-2 pt-4">
+                <a
+                  href={CONTINUE_CTA_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full rounded-md border border-cyan-200/70 bg-cyan-300 px-4 py-3 text-center text-sm font-semibold text-slate-900 shadow-[0_12px_28px_rgba(34,211,238,0.35)] transition hover:bg-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-100 focus-visible:ring-offset-2 focus-visible:ring-offset-[#060814] sm:text-base"
+                >
+                  {CONTINUE_CTA_TEXT}
+                </a>
+              </div>
+            )}
 
             {videoMissing && (
               <p className="px-2 pb-2 pt-3 text-center text-sm text-cyan-100/90" aria-live="polite">
