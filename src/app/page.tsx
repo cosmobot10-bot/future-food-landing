@@ -3,8 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-  const [playbackMessage, setPlaybackMessage] = useState("");
+  const launchFlagKey = "future-food-launch-mission-clicked";
+  const [isVideoOpen, setIsVideoOpen] = useState(() =>
+    typeof window !== "undefined" && window.localStorage.getItem(launchFlagKey) === "1",
+  );
+  const [, setPlaybackMessage] = useState("");
   const [videoMissing, setVideoMissing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -12,6 +15,10 @@ export default function Home() {
     setPlaybackMessage("");
     setVideoMissing(false);
     setIsVideoOpen(true);
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(launchFlagKey, "1");
+    }
   };
 
   const closeVideo = () => {
@@ -26,6 +33,7 @@ export default function Home() {
     setPlaybackMessage("");
     setVideoMissing(false);
   };
+
 
   useEffect(() => {
     if (!isVideoOpen) return;
@@ -59,13 +67,9 @@ export default function Home() {
 
         try {
           await video.play();
-          setPlaybackMessage(
-            "Your browser blocked autoplay with sound. On iOS, audio may require another user gesture.",
-          );
+          setPlaybackMessage("");
         } catch {
-          setPlaybackMessage(
-            "Playback is blocked right now. On iOS, browser media rules may require another tap.",
-          );
+          setPlaybackMessage("");
         }
       }
     };
@@ -135,20 +139,17 @@ export default function Home() {
               preload="auto"
               onError={() => {
                 setVideoMissing(true);
-                setPlaybackMessage(
-                  "Video source missing. Add /public/video/rickroll.mp4 to enable playback.",
-                );
               }}
             >
               <source src="/video/rickroll.mp4" type="video/mp4" />
               Your browser does not support the HTML5 video tag.
             </video>
 
-            <p className="px-2 pb-2 pt-3 text-center text-sm text-cyan-100/90" aria-live="polite">
-              {videoMissing
-                ? "Video file not found: expected at /public/video/rickroll.mp4."
-                : playbackMessage || "Playback should start automatically. On iOS, system media rules can still override behavior."}
-            </p>
+            {videoMissing && (
+              <p className="px-2 pb-2 pt-3 text-center text-sm text-cyan-100/90" aria-live="polite">
+                Video file not found: expected at /public/video/rickroll.mp4.
+              </p>
+            )}
           </div>
         </div>
       )}
