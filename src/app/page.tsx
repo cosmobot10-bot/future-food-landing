@@ -118,8 +118,15 @@ export default function Home() {
               <label htmlFor="email" className="sr-only">
                 Email address
               </label>
-              <input id="email" name="email" type="email" required placeholder="Enter your email" />
-              <button type="submit" className="cta-primary">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                placeholder="Enter your email"
+              />
+              <button type="submit" className="cta-primary" aria-label="Join Now with your email">
                 Join Now
               </button>
             </form>
