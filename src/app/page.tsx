@@ -7,7 +7,6 @@ export default function Home() {
   const [playbackMessage, setPlaybackMessage] = useState("");
   const [videoMissing, setVideoMissing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const openVideo = () => {
     setPlaybackMessage("");
@@ -38,7 +37,6 @@ export default function Home() {
     };
 
     document.addEventListener("keydown", onEsc);
-    closeButtonRef.current?.focus();
 
     return () => document.removeEventListener("keydown", onEsc);
   }, [isVideoOpen]);
@@ -126,15 +124,6 @@ export default function Home() {
           aria-label="Launch Mission video player"
         >
           <div className="relative w-full max-w-5xl rounded-xl border border-cyan-200/30 bg-[#060814] p-2 shadow-[0_0_45px_rgba(14,199,255,0.28)]">
-            <button
-              ref={closeButtonRef}
-              type="button"
-              onClick={closeVideo}
-              className="absolute right-3 top-3 z-10 rounded-full border border-cyan-100/35 bg-black/65 px-3 py-1 text-sm font-medium text-cyan-100 hover:bg-black/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
-              aria-label="Close video player"
-            >
-              Close ✕
-            </button>
 
             <video
               ref={videoRef}
