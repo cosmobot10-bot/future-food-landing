@@ -68,7 +68,15 @@ function parseCookieHeader(cookieHeader: string): Array<[string, string]> {
     .map((part) => {
       const idx = part.indexOf("=");
       if (idx <= 0) return ["", ""] as [string, string];
-      return [part.slice(0, idx).trim(), decodeURIComponent(part.slice(idx + 1).trim())] as [string, string];
+
+      const key = part.slice(0, idx).trim();
+      const rawValue = part.slice(idx + 1).trim();
+
+      try {
+        return [key, decodeURIComponent(rawValue)] as [string, string];
+      } catch {
+        return ["", ""] as [string, string];
+      }
     });
 }
 

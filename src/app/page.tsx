@@ -26,14 +26,21 @@ export default function Home() {
 
     const endpoint = "/api/telemetry/launch-mission";
 
+    const payload = JSON.stringify({ event: "launch_mission" });
+
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(endpoint);
+      const blob = new Blob([payload], { type: "application/json" });
+      navigator.sendBeacon(endpoint, blob);
       return;
     }
 
     void fetch(endpoint, {
       method: "POST",
       keepalive: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: payload,
     });
   };
 

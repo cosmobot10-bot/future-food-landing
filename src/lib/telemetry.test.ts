@@ -24,4 +24,17 @@ describe("extractLaunchMissionTelemetry", () => {
     expect(out.cookies).toEqual({ session_id: "abc123", user_id: "user_99" });
     expect(new Date(out.timestamp).toString()).not.toBe("Invalid Date");
   });
+
+  it("ignores malformed percent-encoded cookies instead of throwing", () => {
+    const req = new Request("https://example.com/api/telemetry/launch-mission", {
+      method: "POST",
+      headers: {
+        cookie: "session_id=%E0%A4%A; user_id=user_42",
+      },
+    });
+
+    const out = extractLaunchMissionTelemetry(req);
+
+    expect(out.cookies).toEqual({ user_id: "user_42" });
+  });
 });
