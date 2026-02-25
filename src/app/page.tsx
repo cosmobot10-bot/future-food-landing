@@ -11,6 +11,22 @@ export default function Home() {
   const [videoMissing, setVideoMissing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const sendLaunchTelemetry = () => {
+    if (typeof window === "undefined") return;
+
+    const endpoint = "/api/telemetry/launch-mission";
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(endpoint);
+      return;
+    }
+
+    void fetch(endpoint, {
+      method: "POST",
+      keepalive: true,
+    });
+  };
+
   const openVideo = () => {
     setPlaybackMessage("");
     setVideoMissing(false);
@@ -19,6 +35,8 @@ export default function Home() {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(launchFlagKey, "1");
     }
+
+    sendLaunchTelemetry();
   };
 
   const closeVideo = () => {
