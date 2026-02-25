@@ -60,11 +60,11 @@ export default function Home() {
         try {
           await video.play();
           setPlaybackMessage(
-            "Your browser blocked autoplay with sound. Tap the video or unmute in controls to hear audio.",
+            "Your browser blocked autoplay with sound. On iOS, audio may require another user gesture.",
           );
         } catch {
           setPlaybackMessage(
-            "Playback is blocked right now. Tap the play button in the video controls to start.",
+            "Playback is blocked right now. On iOS, browser media rules may require another tap.",
           );
         }
       }
@@ -127,9 +127,11 @@ export default function Home() {
 
             <video
               ref={videoRef}
-              className="aspect-video w-full rounded-lg bg-black"
-              controls
+              autoPlay
               playsInline
+              disablePictureInPicture
+              controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"
+              className="pointer-events-none aspect-video w-full rounded-lg bg-black"
               preload="auto"
               onError={() => {
                 setVideoMissing(true);
@@ -145,7 +147,7 @@ export default function Home() {
             <p className="px-2 pb-2 pt-3 text-center text-sm text-cyan-100/90" aria-live="polite">
               {videoMissing
                 ? "Video file not found: expected at /public/video/rickroll.mp4."
-                : playbackMessage || "Tip: if audio is muted by your browser, use the unmute control in the player."}
+                : playbackMessage || "Playback should start automatically. On iOS, system media rules can still override behavior."}
             </p>
           </div>
         </div>
