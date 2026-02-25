@@ -1,64 +1,130 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="relative min-h-screen overflow-x-clip bg-[#04030a] text-white">
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+
+      <div className="cosmos-bg" aria-hidden />
+      <div className="cosmos-stars" aria-hidden />
+      <div className="cosmos-grid" aria-hidden />
+
+      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 md:px-10">
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-full border border-cyan-300/70 bg-cyan-300/20 shadow-[0_0_24px_rgba(34,211,238,0.45)]" />
+          <span className="text-xs tracking-[0.2em] text-cyan-100/90 sm:text-sm sm:tracking-[0.28em]">FUTURE FOOD CLUB</span>
+        </div>
+        <a href="#join-form" className="chip-link">
+          Join Waitlist
+        </a>
+      </header>
+
+      <main id="main-content">
+        <section className="relative mx-auto max-w-6xl px-6 pb-20 pt-8 md:px-10 md:pb-28 md:pt-16">
+          <p className="mb-5 inline-flex rounded-full border border-violet-300/35 bg-violet-300/12 px-4 py-1 text-xs uppercase tracking-[0.22em] text-violet-100/90">
+            Private Beta • Metro Access
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+          <h1 className="max-w-4xl text-balance text-5xl font-semibold leading-[0.97] tracking-tight sm:text-6xl lg:text-7xl">
+            The future of not paying for food is here
+          </h1>
+
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-blue-100/90 sm:text-lg">
+            Earn meals through presence, community missions, and smart local partnerships. Orbit through premium spots,
+            unlock daily drops, and eat like a member—not a customer.
+          </p>
+
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a href="#join-form" className="cta-primary">
+              Join Now
+            </a>
+            <a href="#how" className="cta-secondary">
+              Explore How It Works
+            </a>
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-3">
+            {[
+              ['57+', 'Partner kitchens'],
+              ['4.9', 'Member experience score'],
+              ['24/7', 'Drop windows in major zones'],
+            ].map(([value, label]) => (
+              <div key={label} className="glass-panel">
+                <p className="text-2xl font-semibold text-cyan-100">{value}</p>
+                <p className="mt-1 text-sm text-blue-100/85">{label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 py-10 md:px-10" id="concept">
+          <div className="section-title-wrap">
+            <p className="section-kicker">Concept</p>
+            <h2 className="section-title">A premium food protocol for the social era</h2>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                title: 'Presence Rewards',
+                body: 'Check in, attend pop-up moments, and convert movement into meal credit in real time.',
+              },
+              {
+                title: 'Local Luxury Partners',
+                body: 'From craft bowls to chef-led tasting counters, curated by city and community demand.',
+              },
+              {
+                title: 'Mission Economy',
+                body: 'Complete social and neighborhood missions to unlock higher-tier menus and surprise drops.',
+              },
+            ].map((item) => (
+              <article key={item.title} className="feature-card">
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 py-14 md:px-10" id="how">
+          <div className="section-title-wrap">
+            <p className="section-kicker">How it works</p>
+            <h2 className="section-title">Three steps to your first free plate</h2>
+          </div>
+          <div className="timeline mt-9">
+            {[
+              ['01', 'Reserve Access', 'Secure your city pass and pick your food districts.'],
+              ['02', 'Complete Missions', 'Earn meal credits through events, referrals, and local actions.'],
+              ['03', 'Claim Drops', 'Use credits at partner venues and premium pop-ups instantly.'],
+            ].map(([step, title, desc]) => (
+              <div key={step} className="timeline-item">
+                <span>{step}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 pb-24 pt-8 md:px-10" id="join">
+          <div className="join-panel">
+            <p className="section-kicker">Limited seats</p>
+            <h2>Join Now</h2>
+            <p>
+              Early members get priority partner access, boosted mission multipliers, and city founder perks.
+            </p>
+            <form id="join-form" className="join-form" action="#" method="post">
+              <label htmlFor="email" className="sr-only">
+                Email address
+              </label>
+              <input id="email" name="email" type="email" required placeholder="Enter your email" />
+              <button type="submit" className="cta-primary">
+                Join Now
+              </button>
+            </form>
+          </div>
+        </section>
       </main>
     </div>
   );
