@@ -3,10 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const launchFlagKey = "future-food-launch-mission-clicked";
-  const [isVideoOpen, setIsVideoOpen] = useState(() =>
-    typeof window !== "undefined" && window.localStorage.getItem(launchFlagKey) === "1",
-  );
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [, setPlaybackMessage] = useState("");
   const [videoMissing, setVideoMissing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -31,10 +28,6 @@ export default function Home() {
     setPlaybackMessage("");
     setVideoMissing(false);
     setIsVideoOpen(true);
-
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(launchFlagKey, "1");
-    }
 
     sendLaunchTelemetry();
   };
