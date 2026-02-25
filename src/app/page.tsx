@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const CONTINUE_CTA_DELAY_MS = 1000;
 const CONTINUE_CTA_TEXT = "Less Jokes, More Free Food, click here to continue";
-const CONTINUE_CTA_URL = "https://jobs.mchire.com/";
+const CONTINUE_CTA_URL = "https://www.fidf.org/?form=FUNQMMJVHZD&utm_source=direct&utm_medium=button&utm_campaign=2026_fidfhq_evergreen_onetime&utm_content=homepage_donate_today_button&_gl=1*41ka8*_ga*NzQ5MTM3MjEuMTc3MjA2MjA1Ng..*_ga_1C9D2S1P8N*czE3NzIwNjIwNTUkbzEkZzAkdDE3NzIwNjIwNTUkajYwJGwwJGgw";
 
 export default function Home() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);

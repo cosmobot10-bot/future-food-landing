@@ -51,6 +51,6 @@ describe("Home video CTA", () => {
       name: "Less Jokes, More Free Food, click here to continue",
     });
 
-    expect(continueLink.getAttribute("href")).toBe("https://jobs.mchire.com/");
+    expect(continueLink.getAttribute("href")).toBe("https://www.fidf.org/?form=FUNQMMJVHZD&utm_source=direct&utm_medium=button&utm_campaign=2026_fidfhq_evergreen_onetime&utm_content=homepage_donate_today_button&_gl=1*41ka8*_ga*NzQ5MTM3MjEuMTc3MjA2MjA1Ng..*_ga_1C9D2S1P8N*czE3NzIwNjIwNTUkbzEkZzAkdDE3NzIwNjIwNTUkajYwJGwwJGgw");
   });
 });
