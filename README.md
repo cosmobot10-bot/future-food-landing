@@ -1,9 +1,10 @@
-# Future Food Landing
+# JewberEats Landing
 
 A futuristic landing page built with **Next.js + TypeScript + Tailwind CSS**.
 
 ## Key messaging
-- Hero includes: **"The future of not paying for food is here"**
+- Hero brand name: **"JewberEats"** (displayed very large)
+- Tagline: randomly selected on each page load from three options
 - Primary CTA: **"Launch Mission"**
 
 ## Tech stack

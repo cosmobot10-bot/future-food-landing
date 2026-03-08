@@ -2,6 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const TAGLINES = [
+  "Eat for cheap like a member of the tribe.",
+  "Mazel tov, your dinner is basically free.",
+  "L'chaim to low prices and loaded plates.",
+] as const;
+
 const CONTINUE_CTA_DELAY_MS = 1000;
 const CONTINUE_CTA_TEXT = "Less Jokes, More Free Food, click here to continue";
 const CONTINUE_CTA_URL = "https://www.fidf.org/?form=FUNQMMJVHZD&utm_source=direct&utm_medium=button&utm_campaign=2026_fidfhq_evergreen_onetime&utm_content=homepage_donate_today_button&_gl=1*41ka8*_ga*NzQ5MTM3MjEuMTc3MjA2MjA1Ng..*_ga_1C9D2S1P8N*czE3NzIwNjIwNTUkbzEkZzAkdDE3NzIwNjIwNTUkajYwJGwwJGgw";
@@ -11,6 +17,9 @@ export default function Home() {
   const [, setPlaybackMessage] = useState("");
   const [videoMissing, setVideoMissing] = useState(false);
   const [showContinueCta, setShowContinueCta] = useState(false);
+  const [tagline] = useState(
+    () => TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
+  );
   const ctaTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -142,15 +151,15 @@ export default function Home() {
       >
         <section className="w-full text-center">
           <p className="mx-auto mb-6 inline-flex rounded-full border border-violet-300/35 bg-violet-300/12 px-4 py-1 text-xs uppercase tracking-[0.22em] text-violet-100/90">
-            Future Food Club • Private Beta
+            JewberEats • Private Beta
           </p>
 
-          <h1 className="mx-auto max-w-4xl text-balance text-5xl font-semibold leading-[0.97] tracking-tight sm:text-6xl lg:text-7xl">
-            The future of not paying for food is here
+          <h1 className="mx-auto max-w-5xl text-balance text-7xl font-extrabold leading-[0.92] tracking-tighter sm:text-8xl lg:text-9xl">
+            JewberEats
           </h1>
 
-          <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-blue-100/90 sm:text-lg">
-            Join to learn more about the future of eating for less.
+          <p className="mx-auto mt-7 max-w-2xl text-xl leading-relaxed text-blue-100/90 sm:text-2xl lg:text-3xl">
+            {tagline}
           </p>
 
           <div className="mt-10">

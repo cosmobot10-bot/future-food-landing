@@ -13,20 +13,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Future Food Club | The future of not paying for food is here",
+  title: "JewberEats | Eat for cheap like a member of the tribe",
   description:
-    "Join Future Food Club and unlock premium meals through community missions, city drops, and partner venues.",
+    "JewberEats: low prices, loaded plates, and meals that feel basically free.",
   openGraph: {
-    title: "Future Food Club",
+    title: "JewberEats",
     description:
-      "The future of not paying for food is here. Join now for early member access.",
+      "Low prices, loaded plates, and meals that feel basically free. Join now for early access.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Future Food Club",
+    title: "JewberEats",
     description:
-      "The future of not paying for food is here. Join now for early access.",
+      "Low prices, loaded plates, and meals that feel basically free. Join now for early access.",
   },
 };
 
