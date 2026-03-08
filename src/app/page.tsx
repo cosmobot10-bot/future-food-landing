@@ -6,6 +6,8 @@ const TAGLINES = [
   "Eat for cheap like a member of the tribe.",
   "Mazel tov, your dinner is basically free.",
   "L'chaim to low prices and loaded plates.",
+  "Pay full price? That's not in the Torah.",
+  "Chosen people, chosen discounts, chosen dinner.",
 ] as const;
 
 const CONTINUE_CTA_DELAY_MS = 1000;
