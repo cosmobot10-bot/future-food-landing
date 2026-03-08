@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 const TAGLINES = [
   "Eat for cheap like a member of the tribe.",
   "Mazel tov, your dinner is basically free.",
-  "L'chaim to low prices and loaded plates.",
   "Pay full price? That's not in the Torah.",
   "Chosen people, chosen discounts, chosen dinner.",
 ] as const;
@@ -19,9 +18,7 @@ export default function Home() {
   const [, setPlaybackMessage] = useState("");
   const [videoMissing, setVideoMissing] = useState(false);
   const [showContinueCta, setShowContinueCta] = useState(false);
-  const [tagline] = useState(
-    () => TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
-  );
+  const [tagline, setTagline] = useState("");
   const ctaTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -31,6 +28,12 @@ export default function Home() {
       ctaTimerRef.current = null;
     }
   };
+
+  /* Pick a random tagline once on the client so server and client start from
+     the same empty string, avoiding a hydration mismatch flash. */
+  useEffect(() => {
+    setTagline(TAGLINES[Math.floor(Math.random() * TAGLINES.length)]);
+  }, []);
 
   const sendLaunchTelemetry = () => {
     if (typeof window === "undefined") return;
@@ -160,8 +163,11 @@ export default function Home() {
             JewberEats
           </h1>
 
-          <p className="mx-auto mt-7 max-w-2xl text-xl leading-relaxed text-blue-100/90 sm:text-2xl lg:text-3xl">
-            {tagline}
+          <p
+            className={`mx-auto mt-7 max-w-2xl text-xl leading-relaxed text-blue-100/90 transition-opacity duration-300 sm:text-2xl lg:text-3xl ${tagline ? "opacity-100" : "opacity-0"}`}
+            aria-hidden={!tagline}
+          >
+            {tagline || "\u00A0"}
           </p>
 
           <div className="mt-10">
